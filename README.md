@@ -17,7 +17,7 @@ sudo install minikube-linux-amd64 /usr/local/bin/minikube
 ```
 ## Clone the project
 You need to clone the project<br>
-` git clone <project_url>`
+` git clone https://github.com/amiriry/msconf.git`
 
 ## Make minikube work with local docker images
 `eval $(minikube -p minikube docker-env)`<br>
