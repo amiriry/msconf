@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+   name: ms-test
+   namespace: default
+spec:
+   replicas: 1
+   selector:
+      matchLabels:
+         app: testapp 
+   template:
+      metadata:
+         labels:
+            app: testapp
+      spec:
+         containers:
+         - name: tesappcont
+           image: alpine/curl
+           imagePullPolicy: IfNotPresent
+           command: ["/bin/sh"]
+           args: ["-c", "while true; do sleep 5000;done"]

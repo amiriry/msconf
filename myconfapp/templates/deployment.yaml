@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+   name: ms-demo
+   namespace: default
+spec:
+   replicas: 1
+   selector:
+      matchLabels:
+         app: microservice
+   template:
+      metadata:
+         labels:
+            app: microservice
+      spec:
+         containers:
+         - name: envvarcont
+           image: confms
+           imagePullPolicy: Never
+           ports:
+           - containerPort: 5000
+           env:
+           - name: MY_ENVIRONMENT_VARIABLE 
+             valueFrom:
+               configMapKeyRef:
+                  name: myconfig
+                  key: MY_ENVIRONMENT_VARIABLE
