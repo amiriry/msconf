@@ -74,21 +74,21 @@ replicaset.apps/ms-test-6b5c8996b
 Notice: <br>
 There are 2 deployments<br>
 <b>ms-demo</b> - Where the actual code is running<br>
-<b>ms-test</b> - You can do test for the ms api<br>
+<b>ms-test</b> - Tests to the ms api are going to be done from the pod in this deployment
 
 ## Test the MS
 
 ##### Define pods as variables
-For you to tests of this ms more easily, you need to define env vars for the pods.<br>
+For you to tests this ms more easily, you need to define env vars for the pods.<br>
 Use these commands:<br>
 ```
 MS_TEST_POD=$(kubectl get pod | grep "ms-test" | awk '{print $1}')
 MS_DEMO_POD=$(kubectl get pod | grep "ms-demo" | awk '{print $1}')
 ```
 #### -- Do the API test --
-###### &nbsp;&nbsp;&nbsp;<u>test healthy</u>
+###### &nbsp;&nbsp;&nbsp;<u>test /healthy</u>
 `kubectl exec $MS_TEST_POD -- curl -s http://microservice:5000/healthy`
-###### &nbsp;&nbsp;&nbsp;<u>test get_variable</u>
+###### &nbsp;&nbsp;&nbsp;<u>test /get_variable</u>
 ```
 # Get value from configmap
 kubectl get configmap myconfig -o jsonpath='{.data}{"\n"}'
@@ -96,7 +96,7 @@ kubectl get configmap myconfig -o jsonpath='{.data}{"\n"}'
 # Get the environment variable from the api, using os.environ['MY_ENVIRONMENT_VARIABLE']
 kubectl exec $MS_TEST_POD -- curl -s http://microservice:5000/get_variable
 ```
-###### &nbsp;&nbsp;&nbsp;<u>test set_variable</u>
+###### &nbsp;&nbsp;&nbsp;<u>test /set_variable</u>
 ```
 # First set the variable
 kubectl exec $MS_TEST_POD -- curl -s -X POST http://microservice:5000/set_variable?new=aaaaa
@@ -106,7 +106,8 @@ kubectl exec $MS_TEST_POD -- curl -s http://microservice:5000/get_variable
 ```
 #### -- Do the PYTEST tests --
 You can look in the file `myconfapp/test_api.py`, it defines all the tests.<br>
-The way to run it is from within the pod. That's why we defined <b>MS_DEMO_POD</b> variable.<br>
+The way to run it is from is from where the code is, meaning from the ms pod.<br>
+That's the reason we defined <b>MS_DEMO_POD</b> variable.<br>
 
 To see the results:<br>
 ```kubectl exec $MS_DEMO_POD -- pytest -rA```
