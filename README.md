@@ -1,4 +1,5 @@
 # MSCONF project
+for more general environment variables go [here](https://github.com/amiriry/Devops/tree/main/Kubernetes/Microservices/msconf)<br>
 This is an example project for very simple microservice that only manipulate<br>
 one environment variable.<br>
 The environment variable name is <b>MY_ENVIRONMENT_VARIABLE</b>.<br>
@@ -108,7 +109,6 @@ kubectl exec $MS_TEST_POD -- curl -s http://microservice:5000/get_variable
 You can look in the file `myconfapp/test_api.py`, it defines all the tests.<br>
 The way to run it is from is from where the code is, meaning from the ms pod.<br>
 That's the reason we defined <b>MS_DEMO_POD</b> variable.<br>
-for more general environment variables go [here](https://github.com/amiriry/Devops/tree/main/Kubernetes/Microservices/msconf)
 
 To see the results:<br>
 ```kubectl exec $MS_DEMO_POD -- pytest -rA```
