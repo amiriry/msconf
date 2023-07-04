@@ -1,8 +1,7 @@
 # MSCONF project
 for more general environment variables go [here](https://github.com/amiriry/Devops/tree/main/Kubernetes/Microservices/msconf).<br><br>
-This is an example project for very simple microservice that only manipulate<br>
-one environment variable.<br>
-The environment variable name is <b>MY_ENVIRONMENT_VARIABLE</b>.<br>
+This is an example project for very simple microservice that environment variables.<br>
+It also defines one, which makes the tests much easier to understand. Its name is MY_ENVIRONMENT_VARIABLE.<br>
 It is first defined with configmap named `myconfigfile.yaml` with the value: ```vvvvv```<br>
 <br>
 
